@@ -1,0 +1,133 @@
+ <!DOCTYPE html>
+ <head>
+ <link href="https://fonts.googleapis.com/css2?family=Londrina+Shadow&family=Pacifico&display=swap" rel="stylesheet">
+
+ <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&family=Londrina+Shadow&family=Pacifico&display=swap" rel="stylesheet">
+
+   <title>Bianca bharat</title>
+   <style>
+     body {
+       text-align: center;
+       background: url("https://marketplace.canva.com/EAFZh1d6bzM/1/0/1600w/canva-beige-earth-tone-abstract-leaf-desktop-wallpaper-Xtnwov6targ.jpg");
+       background-size: cover;
+       background-position: center;
+       color: Green ;
+       font-family: Pacifico;
+     }
+     p {
+       font-size: 25px;
+     }
+     input {
+       border: 0;
+       padding: 10px;
+       font-size: 18px;
+     }
+     input[type="submit"] {
+       background: Green;
+       color: pink;
+   font-family: "Edu AU VIC WA NT Arrows", cursive;
+     }
+     h1 {
+       font-family: "Pacifico";
+       }
+     img {
+      
+       width: 300px;
+       }
+   </style>
+ </head>
+ <body>
+
+   <img src="https://i.pinimg.com/originals/18/81/a5/1881a59ebf742a0f4b781d35cab45c85.png">
+   <p>Hi! I'm Bianca, A JGS Student! Hello!</p>
+   <input id="Name" type="name" placeholder="Your name">
+   <input id="Email" type="email" placeholder="Your email">
+   <input id="age" type="age" placeholder="your age">
+   <input id="submit"  type="submit" placeholder="submit">
+   
+   
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-database.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyCXSnqiN9bUoJdvFYlX_NeD1xGI16wB4DU",
+    authDomain: "fir-e2dea.firebaseapp.com",
+    databaseURL: "https://fir-e2dea-default-rtdb.firebaseio.com",
+    projectId: "fir-e2dea",
+    storageBucket: "fir-e2dea.firebasestorage.app",
+    messagingSenderId: "1028680754536",
+    appId: "1:1028680754536:web:e95881cc0c963c72fda2dd",
+    measurementId: "G-HWF3VFKMYW"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+   const Name = document.querySelector("#Name") 
+   const Email = document.querySelector("#Email")
+    const age = document.querySelector("#age")
+   document.querySelector('#submit').addEventListener('click', Submit)
+   
+function Submit() {
+  const timestamp = buildTimestamp()
+  
+  set(ref(db, timestamp), {
+	  Name: Name.value,
+      email: Email.value,
+	  age: age.value,
+  });
+
+  Name.value = ""
+  Email.value = ""
+  age.value = ""
+}
+
+
+function buildTimestamp() {
+  const now = new Date();
+  let timestamp = now.getFullYear().toString() + "/";
+  //const month = now.toLocaleString('default', { month: 'long' });
+
+  let month = now.getMonth()+1   //add 1 because Javascript uses 0 for January
+  month = month.toString()
+  month = addLeadingZero(month)
+  timestamp += month + "/"; 
+
+  let date = now.getDate().toString()
+  date = addLeadingZero(date)
+  timestamp += date + "/";
+
+  let hours = now.getHours().toString()
+  hours = addLeadingZero(hours)
+  timestamp += hours + ":";
+
+  let minutes = now.getMinutes().toString()
+  minutes = addLeadingZero(minutes)
+  timestamp += minutes + ":";
+
+  let seconds = now.getSeconds().toString()
+  seconds = addLeadingZero(seconds)
+  timestamp += seconds;
+
+  return timestamp
+}
+
+function addLeadingZero(units) {
+	if (units.length < 2) {
+		units = "0" + units
+	}
+	return units
+}
+
+
+  
+ </script>
+   
+   
+ </body>
